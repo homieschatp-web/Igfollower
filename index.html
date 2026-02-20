@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Entry | Quantum Authentication</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon: #00f2fe;
+            --neon-glow: rgba(0, 242, 254, 0.4);
+            --bg: #020617;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #e2e8f0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .orbitron { font-family: 'Orbitron', sans-serif; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(0, 242, 254, 0.1); }
+        
+        .input-field {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        .input-field:focus {
+            border-color: var(--neon);
+            box-shadow: 0 0 15px var(--neon-glow);
+            outline: none;
+        }
+
+        .neon-btn {
+            background: var(--neon);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 20px var(--neon-glow);
+            transition: 0.3s;
+        }
+        .neon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--neon);
+        }
+
+        /* Animated Background Gradients */
+        .blob {
+            position: absolute; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%; z-index: -1;
+            filter: blur(40px);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="blob" style="top: -10%; left: -10%;"></div>
+    <div class="blob" style="bottom: -10%; right: -10%;"></div>
+
+    <div class="glass p-8 md:p-12 rounded-3xl w-full max-w-md mx-4 shadow-2xl relative">
+        <div class="text-center mb-10">
+            <h1 class="orbitron text-3xl font-bold tracking-widest text-white">CORE_<span style="color: var(--neon)">ENTRY</span></h1>
+            <p class="text-slate-500 text-xs mt-2 uppercase tracking-tighter">Authorized Personal Only Beyond This Point</p>
+        </div>
+
+        <div class="flex mb-8 bg-black/30 p-1 rounded-xl">
+            <button onclick="toggleMode('login')" id="login-tab" class="flex-1 py-2 rounded-lg text-sm font-bold transition-all text-white bg-white/10">LOGIN</button>
+            <button onclick="toggleMode('register')" id="register-tab" class="flex-1 py-2 rounded-lg text-sm font-bold transition-all text-slate-500">SIGNUP</button>
+        </div>
+
+        <form id="auth-form" class="space-y-5">
+            <div>
+                <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1 ml-1">Identity Email</label>
+                <input type="email" id="email" required placeholder="name@domain.com" class="input-field w-full p-4 rounded-xl text-sm">
+            </div>
+            <div>
+                <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1 ml-1">Access Cipher</label>
+                <input type="password" id="password" required placeholder="••••••••" class="input-field w-full p-4 rounded-xl text-sm">
+            </div>
+
+            <p id="error-msg" class="text-red-500 text-[10px] font-bold text-center hidden uppercase"></p>
+
+            <button type="submit" id="submit-btn" class="neon-btn w-full py-4 rounded-xl orbitron tracking-widest mt-4">
+                INITIATE_SESSION
+            </button>
+        </form>
+
+        <div id="loader" class="absolute inset-0 bg-slate-950/80 rounded-3xl hidden flex items-center justify-center">
+            <div class="w-10 h-10 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // REPLACE WITH YOUR ACTUAL FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyCoVj4nvQJULBMD_KYpGfRWi4npme6RNnM",
+            authDomain: "mms-f37cf.firebaseapp.com",
+            projectId: "mms-f37cf",
+            storageBucket: "mms-f37cf.firebasestorage.app",
+            messagingSenderId: "85615411698",
+            appId: "1:85615411698:web:ab25f02dac6efa1e6eeb6b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        const ADMIN_EMAIL = "khanaariziqbal8@gmail.com";
+        let isLoginMode = true;
+
+        // AUTH REDIRECTION LOGIC
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if (user.email === ADMIN_EMAIL) {
+                    window.location.href = "admin.html";
+                } else {
+                    window.location.href = "home.html";
+                }
+            }
+        });
+
+        // TOGGLE LOGIN/SIGNUP
+        window.toggleMode = (mode) => {
+            isLoginMode = mode === 'login';
+            const loginTab = document.getElementById('login-tab');
+            const regTab = document.getElementById('register-tab');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (isLoginMode) {
+                loginTab.classList.add('bg-white/10', 'text-white');
+                loginTab.classList.remove('text-slate-500');
+                regTab.classList.remove('bg-white/10', 'text-white');
+                regTab.classList.add('text-slate-500');
+                submitBtn.innerText = "INITIATE_SESSION";
+            } else {
+                regTab.classList.add('bg-white/10', 'text-white');
+                regTab.classList.remove('text-slate-500');
+                loginTab.classList.remove('bg-white/10', 'text-white');
+                loginTab.classList.add('text-slate-500');
+                submitBtn.innerText = "CREATE_IDENTITY";
+            }
+        };
+
+        // FORM SUBMISSION
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            const loader = document.getElementById('loader');
+
+            errorMsg.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            try {
+                if (isLoginMode) {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } else {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                }
+            } catch (error) {
+                loader.classList.add('hidden');
+                errorMsg.innerText = error.message.replace("Firebase: ", "");
+                errorMsg.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
