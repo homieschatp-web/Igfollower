@@ -2,268 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IG cheapest Precision Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nexus | Global Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00f2fe; --dark: #020617; }
-        body { background: var(--dark); color: #e2e8f0; font-family: 'Poppins', sans-serif; background: radial-gradient(circle at 50% 0%, #001a33 0%, #020617 100%); min-height: 100vh; }
+        :root { --neon: #00f2fe; --dark: #020617; --tg: #24A1DE; }
+        body { 
+            background: var(--dark); color: #e2e8f0; font-family: 'Poppins', sans-serif; 
+            background: radial-gradient(circle at 50% 0%, #001a33 0%, #020617 100%);
+            min-height: 100vh; overflow-x: hidden;
+        }
         .orbitron { font-family: 'Orbitron', sans-serif; }
-        .glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(0, 242, 254, 0.15); border-radius: 24px; }
-        .neon-text { color: var(--neon); text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+        .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .inner-card { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 242, 254, 0.1); }
         
-        /* Service Cards */
-        .tier-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
-        .tier-card:hover { transform: translateY(-10px); border-color: var(--neon); box-shadow: 0 0 30px rgba(0, 242, 254, 0.2); }
-
-        /* Modals */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
-        .modal.active { display: flex; animation: fadeIn 0.3s ease; }
-        .step-content { display: none; }
-        .step-content.active { display: block; animation: slideUp 0.4s ease; }
+        /* Sidebar Control */
+        .sidebar { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; }
+        .sidebar.closed { transform: translateX(-100%); }
         
-        #chat-box::-webkit-scrollbar { width: 4px; }
-        #chat-box::-webkit-scrollbar-thumb { background: var(--neon); border-radius: 10px; }
+        /* Chat Scrollbar */
+        .chat-scroll::-webkit-scrollbar { width: 3px; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: var(--neon); border-radius: 10px; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); } }
+        /* Telegram Floating Icon */
+        .tg-overlay {
+            position: fixed; bottom: 25px; right: 20px; z-index: 99;
+            background: var(--tg); border-radius: 50px; padding: 12px;
+            box-shadow: 0 10px 25px rgba(36, 161, 222, 0.3);
+        }
     </style>
 </head>
-<body>
+<body class="flex flex-col">
 
-    <nav class="max-w-7xl mx-auto p-6 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center font-bold text-black orbitron">Q</div>
-            <h1 class="orbitron font-bold tracking-tighter text-xl">FLUX_<span class="neon-text">SYSTEM</span></h1>
-        </div>
-        <div class="flex items-center gap-4">
-            <div id="auth-header" class="text-[10px] uppercase tracking-widest text-slate-400 bg-white/5 px-4 py-2 rounded-full border border-white/10">Guest User</div>
-            <button id="logout-btn" onclick="handleLogout()" class="hidden text-[10px] orbitron text-red-500 hover:text-white transition font-bold">LOGOUT_</button>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto px-6 py-12">
-        <div id="services-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            </div>
-    </main>
-
-    <a href="https://t.me/Asiawalatech" target="_blank" class="fixed bottom-6 left-6 w-14 h-14 bg-[#24A1DE] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all z-50">
-        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0C5.347 0 0 5.347 0 11.944c0 6.597 5.347 11.944 11.944 11.944 6.597 0 11.944-5.347 11.944-11.944C23.888 5.347 18.541 0 11.944 0zm5.201 8.358l-1.77 8.342c-.133.593-.483.738-.979.46l-2.7-1.99-1.302 1.253c-.144.144-.264.264-.541.264l.194-2.75 5.01-4.524c.218-.194-.048-.302-.337-.11l-6.191 3.9-2.668-.834c-.58-.182-.591-.58.121-.856l10.424-4.016c.483-.182.906.11.738.861z"/></svg>
+    <a href="https://t.me/your_telegram" target="_blank" class="tg-overlay active:scale-90 transition-transform">
+        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.467 8.246c.14 1.274-.1 3.972-.247 5.242-.125 1.07-.47 1.408-.856 1.447-.838.083-1.474-.547-2.284-1.077-1.268-.83-1.984-1.345-3.216-2.155-1.423-.935-.5-1.448.31-2.29.212-.22 3.896-3.574 3.968-3.88.009-.038.017-.18-.056-.244-.073-.064-.181-.043-.259-.025-.11.024-1.867 1.186-5.263 3.473-.497.34-.947.508-1.35.501-.444-.007-1.298-.248-1.933-.454-.78-.252-1.398-.387-1.343-.817.029-.224.335-.453.918-.687 3.6-1.568 5.999-2.603 7.198-3.104 3.426-1.433 4.138-1.682 4.602-1.69.102-.002.329.023.476.143.123.1.158.234.17.344.012.11.025.377.014.52z"/></svg>
     </a>
 
-    <div id="order-modal" class="modal">
-        <div class="glass p-8 w-full max-w-md relative border-white/10 shadow-2xl">
-            <div id="step-1" class="step-content active text-center">
-                <h3 class="orbitron text-xs mb-8 neon-text tracking-widest">PHASE_01: SELECTION</h3>
-                <div class="bg-white/5 p-6 rounded-3xl mb-8">
-                    <p id="m-tier" class="orbitron text-2xl font-bold mb-1">-</p>
-                    <div class="text-2xl font-bold text-white" id="m-price">₹0</div>
-                </div>
-                <button onclick="nextStep(2)" class="w-full py-4 bg-cyan-500 text-black font-bold orbitron rounded-xl">CONFIRM</button>
-            </div>
-
-            <div id="step-2" class="step-content">
-                <h3 class="orbitron text-xs mb-8 neon-text tracking-widest">PHASE_02: TARGET</h3>
-                <input type="text" id="order-link" placeholder="Instagram Profile Link" class="w-full bg-slate-900 border border-white/5 p-4 rounded-xl text-sm mb-4 outline-none">
-                <div id="guest-email-div">
-                    <input type="email" id="order-email" placeholder="Your Email" class="w-full bg-slate-900 border border-white/5 p-4 rounded-xl text-sm mb-8 outline-none">
-                </div>
-                <button onclick="validateStep2()" class="w-full py-4 bg-cyan-500 text-black font-bold orbitron rounded-xl">CONTINUE</button>
-            </div>
-
-            <div id="step-3" class="step-content text-center">
-                <h3 class="orbitron text-xs mb-4 neon-text">PHASE_03: VOUCHER</h3>
-                <p class="text-[10px] text-yellow-500 mb-6 italic">"Don't enter wrong or used redeem"</p>
-                <input type="text" id="redeem-input" placeholder="REDEEM CODE" class="w-full bg-slate-900 border border-white/5 p-4 rounded-xl text-sm mb-8 outline-none uppercase text-center font-mono">
-                <button onclick="validateStep3()" class="w-full py-4 bg-cyan-500 text-black font-bold orbitron rounded-xl">VERIFY</button>
-            </div>
-
-            <div id="step-4" class="step-content">
-                <h3 class="orbitron text-xs mb-6 neon-text">PHASE_04: SUMMARY</h3>
-                <div id="summary-content" class="text-[11px] space-y-2 mb-8 bg-white/5 p-4 rounded-xl font-mono"></div>
-                <button onclick="submitOrder()" class="w-full py-4 bg-cyan-500 text-black font-bold orbitron rounded-xl">PLACE ORDER</button>
-            </div>
-            <button onclick="closeModal()" class="w-full mt-4 text-[10px] text-slate-500">CANCEL</button>
+    <header class="p-5 flex justify-between items-center sticky top-0 z-[900] glass border-b border-white/5">
+        <button onclick="toggleSidebar()" class="p-2 glass rounded-xl text-cyan-400 active:scale-90 transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <div class="flex flex-col items-center">
+            <h1 class="orbitron text-[10px] font-bold tracking-[0.4em]">NEXUS</h1>
+            <span class="text-[7px] orbitron text-cyan-500 animate-pulse">LIVE_CONNECTION</span>
         </div>
-    </div>
+        <div class="w-10"></div>
+    </header>
 
-    <button onclick="toggleHelp()" class="fixed bottom-6 right-6 w-14 h-14 bg-cyan-500 text-black rounded-full flex items-center justify-center shadow-lg z-50 hover:rotate-12 transition-transform">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7z"></path></svg>
-    </button>
-
-    <div id="help-modal" class="modal">
-        <div class="glass w-full max-w-md h-[600px] flex flex-col overflow-hidden relative border-cyan-500/20">
-            <div class="p-5 border-b border-white/10 flex justify-between items-center bg-white/5">
-                <h3 class="orbitron text-[10px] neon-text tracking-widest">HELP_CENTRE_V2</h3>
-                <button onclick="toggleHelp()" class="text-slate-500 hover:text-white">✕</button>
+    <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full w-80 glass border-r border-white/10 p-6 closed flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="orbitron text-[10px] text-cyan-400 font-bold">SUPPORT_TERMINAL</h2>
+                <p class="text-[7px] text-slate-500 uppercase mt-1">End-to-End Encrypted</p>
             </div>
+            <button onclick="toggleSidebar()" class="text-slate-500 hover:text-white p-2">✕</button>
+        </div>
 
-            <div class="p-4 bg-cyan-500/10 border-b border-cyan-500/20">
-                <p class="text-[9px] orbitron font-bold text-cyan-400 text-center uppercase leading-relaxed">
-                    ENTER OUR ORDER ID AND YOUR PROBLEM WE WILL REPLY YOU IN 10-15 MIN IF WE DID NOT MSG ON TG
-                </p>
-            </div>
-            
-            <div id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-4 text-sm bg-black/20">
-                <div class="text-[9px] text-center text-slate-500 uppercase mt-20">Provide Email to Sync Messages</div>
-            </div>
-
-            <div class="p-4 bg-slate-900/80 border-t border-white/5 space-y-3">
-                <input type="email" id="chat-email" placeholder="Your Registered Email" class="w-full bg-black/50 border border-white/10 p-2 rounded-lg text-[10px] outline-none text-cyan-400">
-                <div class="flex gap-2">
-                    <input type="text" id="chat-input" placeholder="Order ID & Problem..." class="flex-1 bg-black/50 border border-white/10 p-3 rounded-xl text-xs outline-none">
-                    <button onclick="sendChatMessage()" class="w-12 h-12 bg-cyan-500 text-black rounded-xl flex items-center justify-center hover:bg-white transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
+        <div id="chat-box" class="flex-1 overflow-y-auto chat-scroll space-y-4 mb-4 pr-2">
+            <div class="text-center py-10">
+                <p class="text-[9px] orbitron text-slate-600 uppercase">Awaiting connection...</p>
             </div>
         </div>
-    </div>
+
+        <div class="mt-auto">
+            <div class="flex gap-2 bg-black/60 p-2 rounded-2xl border border-white/10 focus-within:border-cyan-500/50 transition-all">
+                <input type="text" id="chat-input" placeholder="Type message..." 
+                       class="flex-1 bg-transparent text-xs p-2 outline-none text-white placeholder:text-slate-600">
+                <button onclick="sendMsg()" class="bg-cyan-500 text-black px-4 py-2 rounded-xl orbitron text-[9px] font-bold active:scale-95 transition">
+                    SEND
+                </button>
+            </div>
+            <button onclick="logout()" class="mt-6 w-full py-3 text-red-500/40 orbitron text-[8px] hover:text-red-500 transition uppercase tracking-widest">Terminate Session</button>
+        </div>
+    </aside>
+
+    <main class="p-5 max-w-lg mx-auto pb-24">
+        <div id="service-grid" class="space-y-6">
+            </div>
+    </main>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy, where, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCoVj4nvQJULBMD_KYpGfRWi4npme6RNnM",
-            authDomain: "mms-f37cf.firebaseapp.com",
-            projectId: "mms-f37cf",
-            storageBucket: "mms-f37cf.firebasestorage.app",
-            messagingSenderId: "85615411698",
-            appId: "1:85615411698:web:ab25f02dac6efa1e6eeb6b",
-            measurementId: "G-8WXLN2S30L"
-        };
-
+        const firebaseConfig = { apiKey: "AIzaSyCoVj4nvQJULBMD_KYpGfRWi4npme6RNnM", authDomain: "mms-f37cf.firebaseapp.com", projectId: "mms-f37cf", storageBucket: "mms-f37cf.firebasestorage.app", messagingSenderId: "85615411698", appId: "1:85615411698:web:ab25f02dac6efa1e6eeb6b" };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Auth Logic
-        onAuthStateChanged(auth, (user) => {
-            const head = document.getElementById('auth-header');
-            const logout = document.getElementById('logout-btn');
-            if (user) {
-                head.innerText = user.email;
-                logout.classList.remove('hidden');
-                document.getElementById('guest-email-div').classList.add('hidden');
-                document.getElementById('order-email').value = user.email;
-                document.getElementById('chat-email').value = user.email;
-                loadChat(user.email);
-            } else {
-                head.innerText = "Guest User";
-                logout.classList.add('hidden');
-                document.getElementById('guest-email-div').classList.remove('hidden');
-            }
+        let userEmail = null;
+
+        onAuthStateChanged(auth, u => {
+            if(!u) window.location.href = "index.html";
+            userEmail = u.email;
+            initChat();
         });
 
-        window.handleLogout = () => signOut(auth).then(() => location.reload());
+        window.toggleSidebar = () => document.getElementById('sidebar').classList.toggle('closed');
 
-        // Tiers Setup
-        const tiers = [
-            { n: "Nano", u: 20, p: 3 }, { n: "Micro", u: 30, p: 5 }, 
-            { n: "Pico", u: 90, p: 8 }, { n: "Beta", u: 100, p: 70 },
-            { n: "Gamma", u: 200, p: 140 }, { n: "Delta", u: 300, p: 149 }, { n: "Sigma", u: 1000, p: 312 }
-        ];
+        // Load Services with Card-in-Card + Buy Now
+        onSnapshot(query(collection(db, "services"), orderBy("quantity", "asc")), snap => {
+            const grid = document.getElementById('service-grid');
+            grid.innerHTML = "";
+            snap.forEach(d => {
+                const s = d.data();
+                grid.innerHTML += `
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 transition-transform">
+                    <div class="flex justify-between items-center mb-6 px-2">
+                        <div>
+                            <p class="orbitron text-[8px] text-cyan-400 mb-1 tracking-widest uppercase">${s.name}</p>
+                            <h3 class="text-4xl font-bold tracking-tighter">${s.quantity.toLocaleString()}</h3>
+                            <p class="text-[9px] text-slate-500 font-bold">IG_FOLLOWERS</p>
+                        </div>
+                        <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(0,242,254,0.1)]">
+                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        </div>
+                    </div>
 
-        let selTier = "", selPrice = 0, selUnits = 0;
-        const container = document.getElementById('services-container');
-        
-        tiers.forEach(t => {
-            const card = document.createElement('div');
-            card.className = "glass p-8 tier-card text-center";
-            card.innerHTML = `<p class="orbitron text-[9px] text-slate-500 mb-4 uppercase">${t.n}</p>
-                              <h4 class="text-4xl font-bold mb-2">${t.u}</h4>
-                              <p class="text-2xl font-bold mb-8 neon-text italic">₹${t.p}</p>
-                              <button class="w-full py-3 bg-white/5 border border-white/10 rounded-xl orbitron text-[10px] uppercase">Select</button>`;
-            card.onclick = () => {
-                selTier = t.n; selPrice = t.p; selUnits = t.u;
-                document.getElementById('m-tier').innerText = selTier;
-                document.getElementById('m-price').innerText = `₹${selPrice}`;
-                document.getElementById('order-modal').classList.add('active');
-            };
-            container.appendChild(card);
+                    <div class="inner-card p-4 rounded-[1.8rem] flex justify-between items-center border border-white/5 shadow-inner">
+                        <div>
+                            <p class="text-[8px] orbitron text-slate-500">SETTLEMENT_FEE</p>
+                            <span class="text-xl font-bold text-white tracking-tighter">₹${s.price}</span>
+                        </div>
+                        <a href="order.html?id=${d.id}" class="bg-cyan-500 text-black px-8 py-3 rounded-2xl orbitron text-[9px] font-bold shadow-lg shadow-cyan-500/20 active:scale-95 transition-all">
+                            BUY_NOW
+                        </a>
+                    </div>
+                </div>`;
+            });
         });
 
-        // Modal Actions
-        window.nextStep = (s) => {
-            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
-            document.getElementById(`step-${s}`).classList.add('active');
-        };
-
-        window.validateStep2 = () => {
-            const link = document.getElementById('order-link').value;
-            if(!link.includes('instagram.com') && !link.includes('tiktok.com')) return alert("Enter a valid Profile Link");
-            nextStep(3);
-        };
-
-        window.validateStep3 = () => {
-            if(!document.getElementById('redeem-input').value) return alert("Redeem Code Mandatory");
-            const summary = `TIER: ${selTier}<br>UNITS: ${selUnits}<br>PRICE: ₹${selPrice}<br>REDEEM: ${document.getElementById('redeem-input').value.toUpperCase()}`;
-            document.getElementById('summary-content').innerHTML = summary;
-            nextStep(4);
-        };
-
-        window.submitOrder = async () => {
-            const id = `FLX${Date.now().toString().slice(-6)}${Math.floor(Math.random()*99)}`;
-            await addDoc(collection(db, "orders"), {
-                orderId: id,
-                userEmail: document.getElementById('order-email').value,
-                tierName: selTier,
-                price: selPrice,
-                redeemCode: document.getElementById('redeem-input').value.toUpperCase(),
-                profileLink: document.getElementById('order-link').value,
-                status: "Pending",
-                createdAt: serverTimestamp()
-            });
-            alert(`Order ID: ${id} Placed!`);
-            location.reload();
-        };
-
-        window.closeModal = () => document.getElementById('order-modal').classList.remove('active');
-
-        // Help & Chat Functions
-        window.toggleHelp = () => document.getElementById('help-modal').classList.toggle('active');
-
-        window.sendChatMessage = async () => {
-            const email = document.getElementById('chat-email').value;
-            const msg = document.getElementById('chat-input').value;
-            if(!email || !msg) return alert("Email and Message Required");
-
-            await addDoc(collection(db, "chats"), {
-                email: email,
-                message: msg,
-                sender: "user",
-                timestamp: serverTimestamp()
-            });
-            document.getElementById('chat-input').value = "";
-            loadChat(email);
-        };
-
-        let chatListener = null;
-        function loadChat(email) {
-            if (chatListener) chatListener();
-            const q = query(collection(db, "chats"), orderBy("timestamp", "asc"));
-            chatListener = onSnapshot(q, (snapshot) => {
+        // Dedicated Help Chat Logic
+        function initChat() {
+            const q = query(collection(db, "chats"), where("email", "==", userEmail), orderBy("timestamp", "asc"));
+            onSnapshot(q, snap => {
                 const box = document.getElementById('chat-box');
                 box.innerHTML = "";
-                snapshot.forEach(doc => {
-                    const d = doc.data();
-                    if(d.email === email) {
-                        const isUser = d.sender === "user";
-                        box.innerHTML += `<div class="flex ${isUser ? 'justify-end' : 'justify-start'}">
-                            <div class="max-w-[85%] p-3 rounded-2xl text-[11px] ${isUser ? 'bg-cyan-500 text-black rounded-tr-none' : 'bg-white/10 text-white rounded-tl-none border border-white/10'}">
-                                ${d.message}
-                            </div>
-                        </div>`;
-                    }
+                snap.forEach(doc => {
+                    const m = doc.data();
+                    const isAdmin = m.sender === 'admin';
+                    box.innerHTML += `
+                    <div class="flex ${isAdmin ? 'justify-start' : 'justify-end'}">
+                        <div class="max-w-[85%] p-3 rounded-2xl text-[10px] ${isAdmin ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-tl-none' : 'bg-white/10 text-white rounded-tr-none'}">
+                            ${m.message}
+                        </div>
+                    </div>`;
                 });
                 box.scrollTop = box.scrollHeight;
             });
         }
 
-        document.getElementById('chat-email').addEventListener('change', (e) => loadChat(e.target.value));
+        window.sendMsg = async () => {
+            const input = document.getElementById('chat-input');
+            if(!input.value.trim()) return;
+            await addDoc(collection(db, "chats"), {
+                email: userEmail,
+                message: input.value.trim(),
+                sender: 'user',
+                timestamp: serverTimestamp()
+            });
+            input.value = "";
+        }
+
+        window.logout = () => signOut(auth).then(() => location.href="index.html");
     </script>
 </body>
 </html>
