@@ -3,37 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CHEAPEST IG SERVICE | Home</title>
+    <title>CHEAPEST IG SERVICE | Marketplace</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00f2fe; --dark: #020617; --tg-blue: #24A1DE; }
+        :root { --neon: #00f2fe; --dark: #020617; --tg: #24A1DE; --help: #22c55e; }
         body { 
             background: var(--dark); color: #e2e8f0; font-family: 'Poppins', sans-serif; 
             background: radial-gradient(circle at 50% 0%, #001a33 0%, #020617 100%);
-            min-height: 100vh;
+            min-height: 100vh; overflow-x: hidden;
         }
         .orbitron { font-family: 'Orbitron', sans-serif; }
-        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .inner-card { background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(0, 242, 254, 0.1); }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .inner-card { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 242, 254, 0.08); }
         
-        /* Sidebar Control */
+        /* Sidebar Navigation */
         .sidebar { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; }
         .sidebar.closed { transform: translateX(-100%); }
         
-        /* Telegram Overlay Styling */
-        .tg-overlay {
-            position: fixed; bottom: 25px; right: 20px; z-index: 999;
-            background: var(--tg-blue); border-radius: 50px; padding: 12px;
-            box-shadow: 0 0 20px rgba(36, 161, 222, 0.4);
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        /* History Status Colors */
-        .status-pill { font-size: 8px; padding: 2px 8px; border-radius: 99px; font-weight: bold; }
-        .status-pending { background: rgba(234, 179, 8, 0.1); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.2); }
-        .status-success { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.2); }
+        /* Fixed Overlays */
+        .overlay-container { position: fixed; bottom: 25px; right: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+        .overlay-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; items-center: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: 0.3s; }
+        .tg-color { background: var(--tg); }
+        .help-color { background: var(--help); border: 2px solid rgba(255,255,255,0.1); }
+        
+        .status-pill { font-size: 8px; padding: 2px 8px; border-radius: 99px; font-weight: bold; text-transform: uppercase; }
+        .status-pending { background: rgba(234, 179, 8, 0.1); color: #eab308; }
+        .status-success { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
 
         .custom-scroll::-webkit-scrollbar { width: 3px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: var(--neon); border-radius: 10px; }
@@ -41,44 +37,47 @@
 </head>
 <body class="flex flex-col">
 
-    <a href="https://t.me/your_telegram_link" target="_blank" class="tg-overlay group transition-all active:scale-90">
-        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.467 8.246c.14 1.274-.1 3.972-.247 5.242-.125 1.07-.47 1.408-.856 1.447-.838.083-1.474-.547-2.284-1.077-1.268-.83-1.984-1.345-3.216-2.155-1.423-.935-.5-1.448.31-2.29.212-.22 3.896-3.574 3.968-3.88.009-.038.017-.18-.056-.244-.073-.064-.181-.043-.259-.025-.11.024-1.867 1.186-5.263 3.473-.497.34-.947.508-1.35.501-.444-.007-1.298-.248-1.933-.454-.78-.252-1.398-.387-1.343-.817.029-.224.335-.453.918-.687 3.6-1.568 5.999-2.603 7.198-3.104 3.426-1.433 4.138-1.682 4.602-1.69.102-.002.329.023.476.143.123.1.158.234.17.344.012.11.025.377.014.52z"/>
-        </svg>
-    </a>
+    <div class="overlay-container">
+        <a href="https://t.me/your_telegram" target="_blank" class="overlay-btn tg-color active:scale-90">
+            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.467 8.246c.14 1.274-.1 3.972-.247 5.242-.125 1.07-.47 1.408-.856 1.447-.838.083-1.474-.547-2.284-1.077-1.268-.83-1.984-1.345-3.216-2.155-1.423-.935-.5-1.448.31-2.29.212-.22 3.896-3.574 3.968-3.88.009-.038.017-.18-.056-.244-.073-.064-.181-.043-.259-.025-.11.024-1.867 1.186-5.263 3.473-.497.34-.947.508-1.35.501-.444-.007-1.298-.248-1.933-.454-.78-.252-1.398-.387-1.343-.817.029-.224.335-.453.918-.687 3.6-1.568 5.999-2.603 7.198-3.104 3.426-1.433 4.138-1.682 4.602-1.69.102-.002.329.023.476.143.123.1.158.234.17.344.012.11.025.377.014.52z"/></svg>
+        </a>
+        <button onclick="toggleSidebar()" class="overlay-btn help-color active:scale-90 flex items-center justify-center">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+        </button>
+    </div>
 
     <header class="p-5 flex justify-between items-center sticky top-0 z-[900] glass border-b border-white/5">
         <button onclick="toggleSidebar()" class="p-2 glass rounded-xl text-cyan-400 active:scale-90 transition">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
         <div class="text-center">
-            <h1 class="orbitron text-[11px] font-bold tracking-[0.2em] text-white">CHEAPEST IG SERVICE</h1>
-            <p class="text-[7px] orbitron text-cyan-500 tracking-[0.4em] uppercase">Status: Secure</p>
+            <h1 class="orbitron text-[11px] font-bold text-white tracking-[0.2em] uppercase">Cheapest IG Service</h1>
+            <p class="text-[7px] orbitron text-cyan-500 tracking-[0.3em] uppercase">High_Speed_Server</p>
         </div>
         <div class="w-10"></div>
     </header>
 
     <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full w-80 glass border-r border-white/10 p-6 closed flex flex-col">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="orbitron text-[10px] text-cyan-400 font-bold tracking-widest">ORDER_HISTORY</h2>
+            <h2 class="orbitron text-[10px] text-cyan-400 font-bold tracking-widest">HELP_CENTRE_LOGS</h2>
             <button onclick="toggleSidebar()" class="text-slate-500 p-2">✕</button>
         </div>
 
         <div id="history-list" class="flex-1 overflow-y-auto custom-scroll space-y-4 pr-2">
-            <p class="text-[9px] text-slate-600 text-center mt-10 orbitron opacity-30">SCANNING_RECORDS...</p>
-        </div>
+            </div>
 
         <div class="pt-6 border-t border-white/5 mt-4">
             <div class="flex justify-between items-center mb-6 px-1">
-                <span class="orbitron text-[8px] text-slate-500">TOTAL_FEE</span>
+                <span class="orbitron text-[8px] text-slate-500 uppercase">Total_Spent</span>
                 <span id="total-spend" class="orbitron text-sm font-bold text-white tracking-tighter">₹0</span>
             </div>
-            <button onclick="logout()" class="w-full py-3 bg-red-500/10 text-red-500 rounded-xl orbitron text-[8px] font-bold uppercase tracking-widest active:scale-95 transition">Logout</button>
+            <a href="https://t.me/your_telegram" target="_blank" class="block w-full py-3 bg-cyan-500 text-black text-center rounded-xl orbitron text-[9px] font-bold uppercase mb-2">Message Admin</a>
+            <button onclick="logout()" class="w-full py-2 text-red-500/40 orbitron text-[8px] font-bold uppercase">Logout</button>
         </div>
     </aside>
 
-    <main class="p-5 max-w-lg mx-auto pb-28">
-        <div id="service-grid" class="space-y-6">
+    <main class="p-5 max-w-lg mx-auto pb-32">
+        <div id="service-grid" class="space-y-6 mt-4">
             </div>
     </main>
 
@@ -111,7 +110,7 @@
 
         window.toggleSidebar = () => document.getElementById('sidebar').classList.toggle('closed');
 
-        // 1. Load Admin Services
+        // Load Services from Firestore
         function loadServices() {
             onSnapshot(query(collection(db, "services"), orderBy("quantity", "asc")), snap => {
                 const grid = document.getElementById('service-grid');
@@ -119,24 +118,24 @@
                 snap.forEach(d => {
                     const s = d.data();
                     grid.innerHTML += `
-                    <div class="glass p-6 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
-                        <div class="flex justify-between items-start mb-6 px-1">
+                    <div class="glass p-6 rounded-[2.5rem] border border-white/5 relative group">
+                        <div class="flex justify-between items-start mb-6">
                             <div>
-                                <p class="orbitron text-[8px] text-cyan-400 mb-1 tracking-widest uppercase">${s.name}</p>
+                                <p class="orbitron text-[8px] text-cyan-400 mb-1 uppercase tracking-widest">${s.name}</p>
                                 <h3 class="text-4xl font-bold tracking-tighter">${s.quantity.toLocaleString()}</h3>
-                                <p class="text-[9px] text-slate-500 font-bold orbitron">INSTAGRAM_PACK</p>
+                                <p class="text-[9px] text-slate-500 font-bold orbitron uppercase">Instagram_Followers</p>
                             </div>
-                            <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center text-cyan-500">
-                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center text-cyan-400">
+                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             </div>
                         </div>
 
                         <div class="inner-card p-4 rounded-[1.8rem] flex justify-between items-center">
                             <div>
-                                <p class="text-[8px] orbitron text-slate-500 uppercase font-bold">Cost</p>
+                                <p class="text-[8px] orbitron text-slate-500 uppercase font-bold tracking-tighter">Settlement</p>
                                 <span class="text-xl font-bold text-white tracking-tighter">₹${s.price}</span>
                             </div>
-                            <a href="order.html?id=${d.id}" class="bg-cyan-500 text-black px-8 py-3 rounded-2xl orbitron text-[10px] font-bold shadow-lg shadow-cyan-500/20 active:scale-95 transition-all">
+                            <a href="order.html?id=${d.id}" class="bg-cyan-500 text-black px-8 py-3 rounded-2xl orbitron text-[10px] font-bold active:scale-95 transition-all shadow-lg shadow-cyan-500/20">
                                 BUY_NOW
                             </a>
                         </div>
@@ -145,7 +144,7 @@
             });
         }
 
-        // 2. Load History in Sidebar
+        // Load History in Sidebar
         function loadHistory() {
             const q = query(collection(db, "orders"), where("userEmail", "==", userEmail), orderBy("createdAt", "desc"));
             onSnapshot(q, snap => {
@@ -155,7 +154,7 @@
                 list.innerHTML = "";
 
                 if(snap.empty) {
-                    list.innerHTML = `<p class="text-[9px] text-slate-700 text-center mt-10 orbitron uppercase tracking-widest">No history yet</p>`;
+                    list.innerHTML = `<p class="text-[9px] text-slate-700 text-center mt-10 orbitron uppercase">Syncing Records...</p>`;
                     return;
                 }
 
@@ -165,15 +164,15 @@
                     const statusClass = o.status === 'Success' ? 'status-success' : 'status-pending';
                     
                     list.innerHTML += `
-                    <div class="p-4 bg-white/[0.02] rounded-2xl border border-white/5">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="orbitron text-[7px] text-white/30 tracking-widest">${o.orderId}</span>
+                    <div class="p-4 bg-white/[0.03] rounded-2xl border border-white/5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="orbitron text-[7px] text-cyan-500/50 font-bold">ID: ${o.orderId}</span>
                             <span class="status-pill ${statusClass}">${o.status}</span>
                         </div>
-                        <h5 class="text-[10px] font-bold text-white mb-1 uppercase tracking-tight">${o.tierName} (${o.quantity?.toLocaleString()})</h5>
-                        <div class="flex justify-between items-center mt-2 pt-2 border-t border-white/5">
-                            <span class="text-[10px] text-cyan-400 font-bold">₹${o.price}</span>
-                            <span class="text-[7px] text-slate-600 uppercase orbitron">${o.createdAt ? o.createdAt.toDate().toLocaleDateString() : 'Active'}</span>
+                        <h5 class="text-[10px] font-bold text-white uppercase">${o.tierName} (${o.quantity?.toLocaleString()})</h5>
+                        <div class="flex justify-between items-end mt-2 pt-2 border-t border-white/5">
+                            <span class="text-[10px] text-white/50 font-bold">₹${o.price}</span>
+                            <span class="text-[7px] text-slate-600 uppercase orbitron">${o.createdAt ? o.createdAt.toDate().toLocaleDateString() : 'Syncing'}</span>
                         </div>
                     </div>`;
                 });
